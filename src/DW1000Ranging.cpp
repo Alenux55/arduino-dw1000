@@ -105,7 +105,7 @@ void DW1000RangingClass::initCommunication(uint8_t myRST, uint8_t mySS, uint8_t 
 }
 
 
-void DW1000RangingClass::configureNetwork(uint16_t deviceAddress, uint16_t networkId, const byte mode[]) {
+void DW1000RangingClass::configureNetwork(uint16_t deviceAddress, uint16_t networkId, const byte mode[], uint16_t antDelayVal) {
 	// general configuration
 	DW1000.newConfiguration();
 	DW1000.setDefaults();
@@ -113,7 +113,7 @@ void DW1000RangingClass::configureNetwork(uint16_t deviceAddress, uint16_t netwo
 	DW1000.setNetworkId(networkId);
 	DW1000.enableMode(mode);
 	DW1000.commitConfiguration();
-	
+	DW1000.setAntennaDelay(antDelayVal);
 }
 
 void DW1000RangingClass::generalStart() {
@@ -178,9 +178,9 @@ void DW1000RangingClass::startAsAnchor(char address[], const byte mode[], const 
 		_currentShortAddress[1] = _currentAddress[1];
 	}
 	
-	//we configur the network for mac filtering
+	//we configure the network for mac filtering
 	//(device Address, network ID, frequency)
-	DW1000Ranging.configureNetwork(_currentShortAddress[0]*256+_currentShortAddress[1], 0xDECA, mode);
+	DW1000Ranging.configureNetwork(_currentShortAddress[0]*256+_currentShortAddress[1], 0xDECA, mode, 0);
 	
 	//general start:
 	generalStart();
@@ -188,7 +188,7 @@ void DW1000RangingClass::startAsAnchor(char address[], const byte mode[], const 
 	//defined type as anchor
 	_type = ANCHOR;
 	
-	Serial.println("### ANCHOR ###");
+	Serial.println("device: anchor\t");
 	
 }
 
@@ -211,15 +211,15 @@ void DW1000RangingClass::startAsTag(char address[], const byte mode[], const boo
 		_currentShortAddress[1] = _currentAddress[1];
 	}
 	
-	//we configur the network for mac filtering
+	//we configure the network for mac filtering
 	//(device Address, network ID, frequency)
-	DW1000Ranging.configureNetwork(_currentShortAddress[0]*256+_currentShortAddress[1], 0xDECA, mode);
+	DW1000Ranging.configureNetwork(_currentShortAddress[0]*256+_currentShortAddress[1], 0xDECA, mode, 32900);
 	
 	generalStart();
 	//defined type as tag
 	_type = TAG;
 	
-	Serial.println("### TAG ###");
+	Serial.println("device: tag\t");
 }
 
 boolean DW1000RangingClass::addNetworkDevices(DW1000Device* device, boolean shortAddress) {

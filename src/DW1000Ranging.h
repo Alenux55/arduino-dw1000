@@ -76,7 +76,7 @@ public:
 	
 	//initialisation
 	static void    initCommunication(uint8_t myRST = DEFAULT_RST_PIN, uint8_t mySS = DEFAULT_SPI_SS_PIN, uint8_t myIRQ = 2);
-	static void    configureNetwork(uint16_t deviceAddress, uint16_t networkId, const byte mode[]);
+	static void    configureNetwork(uint16_t deviceAddress, uint16_t networkId, const byte mode[], uint16_t antDelayVal);
 	static void    generalStart();
 	static void    startAsAnchor(char address[], const byte mode[], const bool randomShortAddress = true);
 	static void    startAsTag(char address[], const byte mode[], const bool randomShortAddress = true);
