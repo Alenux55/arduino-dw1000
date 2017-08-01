@@ -9,3 +9,5 @@ CMakeLists.txt
 cmake-build-debug
 #exclude OSX stuff
 .DS_STORE
+#exclude Google Drive .ini files
+desktop.ini
