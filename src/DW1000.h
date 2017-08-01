@@ -300,6 +300,7 @@ public:
 	// general configuration state
 	static void newConfiguration();
 	static void commitConfiguration();
+	static void setAntennaDelay(uint16_t antDelayVal);
 	
 	// reception state
 	static void newReceive();
