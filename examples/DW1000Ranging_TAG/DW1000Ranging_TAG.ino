@@ -7,6 +7,7 @@
  */
 #include <SPI.h>
 #include "DW1000Ranging.h"
+#include "DW1000Parser.h"
 
 // connection pins
 const uint8_t PIN_RST = 9; // reset pin
@@ -31,6 +32,7 @@ void setup() {
 
 void loop() {
   DW1000Ranging.loop();
+  DW1000Parser.readUntilEol();
 }
 
 void newRange() {
