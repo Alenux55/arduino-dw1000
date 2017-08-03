@@ -301,6 +301,7 @@ public:
 	static void newConfiguration();
 	static void commitConfiguration();
 	static void setAntennaDelay(uint16_t antDelayVal);
+	uint16_t getAntennaDelay();
 	
 	// reception state
 	static void newReceive();
@@ -533,6 +534,7 @@ public:
 	
 	/* writing numeric values to bytes. */
 	static void writeValueToBytes(byte data[], int32_t val, uint16_t n);
+	uint16_t bytesToUint16_t(byte data[], uint16_t n);
 	
 	/* internal helper for bit operations on multi-bytes. */
 	static boolean getBit(byte data[], uint16_t n, uint16_t bit);

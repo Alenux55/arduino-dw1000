@@ -56,17 +56,6 @@ void DW1000ParserClass::parseCommand(String command) {
 		antDelayStr.replace("\r",""); // remove carriage return character
 		uint16_t value = antDelayStr.toInt();
 
-/* 		int sLen = theCommand.length();
-		for(int s=0; s<sLen; s++)
-		{
-		   Serial.print("theCommand[");
-		   Serial.print(s);
-		   Serial.print("] is {");
-		   Serial.print(theCommand[s]);
-		   Serial.print("} which has an ascii value of ");
-		   Serial.println(theCommand[s], DEC);
-		}
- */		
 		// if the value isn't an integer or value is greater than or equal to the maximum value
 		if ((value < 0) or (value >= pow(2,16)) or ((value == 0) and (antDelayStr != "0")))
 		{
@@ -77,10 +66,16 @@ void DW1000ParserClass::parseCommand(String command) {
 			DW1000.setAntennaDelay(value);
 		}		
 		
-		Serial.println(command);
+		uint16_t delay = DW1000.getAntennaDelay();
+		Serial.println(delay);
+	}
+	else if (command.indexOf(PARSER_COMMAND_GET_ANTENNA_DELAY_STR) != -1) 
+	{
+		uint16_t delay = DW1000.getAntennaDelay();
+		Serial.println(delay);
 	}
 	else
 	{
-		Serial.print("Unknown command: "); Serial.println(inBuffer);
+		Serial.print("Unknown command: "); Serial.println(command);
 	}
 }

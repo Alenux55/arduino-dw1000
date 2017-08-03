@@ -1084,10 +1084,23 @@ void DW1000Class::setAntennaDelay(uint16_t antDelayVal) {
 	// TODO clean up code + antenna delay/calibration API
 	// TODO setter + check not larger two bytes integer
 	byte antennaDelayBytes[LEN_STAMP];
+	
 	writeValueToBytes(antennaDelayBytes, antDelayVal, LEN_STAMP);
 	_antennaDelay.setTimestamp(antennaDelayBytes);
 	writeBytes(TX_ANTD, NO_SUB, antennaDelayBytes, LEN_TX_ANTD);
 	writeBytes(LDE_IF, LDE_RXANTD_SUB, antennaDelayBytes, LEN_LDE_RXANTD);
+}
+
+uint16_t DW1000Class::getAntennaDelay() {
+	byte antennaDelayBytes[LEN_TX_ANTD];
+	
+	readBytes(TX_ANTD, NO_SUB, antennaDelayBytes, LEN_TX_ANTD);
+	uint16_t antennaDelay = bytesToUint16_t(antennaDelayBytes,LEN_TX_ANTD);
+	
+	/* antennaDelay |= (uint16_t) antennaDelayBytes[0];
+	antennaDelay |= (uint16_t) antennaDelayBytes[1] << 8;  */
+	
+	return antennaDelay;
 }
 
 void DW1000Class::waitForResponse(boolean val) {
@@ -1611,6 +1624,17 @@ void DW1000Class::writeValueToBytes(byte data[], int32_t val, uint16_t n) {
 	for(i = 0; i < n; i++) {
 		data[i] = ((val >> (i*8)) & 0xFF); // TODO bad types - signed unsigned problem
 	}
+}
+
+uint16_t DW1000Class::bytesToUint16_t(byte data[], uint16_t n) {
+	uint16_t val;
+	uint16_t i;
+	
+	for(i = 0; i < n; i++) {
+		val |= (uint16_t) data[i] << i*8;
+	}
+	
+	return val;
 }
 
 /*

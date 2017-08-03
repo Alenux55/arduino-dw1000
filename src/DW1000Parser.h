@@ -37,7 +37,7 @@ public:
 	
 	// Available serial commands
 	#define PARSER_COMMAND_SET_ANTENNA_DELAY_STR "set,antDelay,"
-	#define PARSER_COMMAND_GET_ANTENNA_DELAY_STR "get,antDelay,"
+	#define PARSER_COMMAND_GET_ANTENNA_DELAY_STR "get,antDelay"
 	
 /* 	#define SET_KEY(key) strcpy(keys[key], key##_STR); keyLengths[key] = strlen(key##_STR);
 	
