@@ -119,7 +119,6 @@ public:
 	//FOR DEBUGGING
 	static void visualizeDatas(byte datas[]);
 
-
 private:
 	//other devices in the network
 	static DW1000Device _networkDevices[MAX_DEVICES];
