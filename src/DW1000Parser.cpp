@@ -36,13 +36,13 @@ void DW1000ParserClass::readUntilEol() {
 		  inBuffer += received;
 				
 		  // Process message when new line character is received
-		  if (received == '\n' or received == '\r')
+		  if (received == '\r' or received == '\n')
 		  {
+			  inBuffer.replace("\n",""); // remove line feed character
+			  inBuffer.replace("\r",""); // remove carriage return character
 			  parseCommand(inBuffer);
-			  String inBufferRet = inBuffer;
 			  inBuffer = ""; // clear the input buffer
-			  /* return inBufferRet; */
-		  } 
+		  }
 		}
 }
 
@@ -52,8 +52,6 @@ void DW1000ParserClass::parseCommand(String command) {
 		// split the string from the last comma to get the antenna delay value
 		int lastCommaIndex = command.lastIndexOf(',');
 		String antDelayStr = command.substring(lastCommaIndex+1);
-		antDelayStr.replace("\n",""); // remove line feed character
-		antDelayStr.replace("\r",""); // remove carriage return character
 		uint16_t value = antDelayStr.toInt();
 
 		// if the value isn't an integer or value is greater than or equal to the maximum value
@@ -64,15 +62,16 @@ void DW1000ParserClass::parseCommand(String command) {
 		else
 		{
 			DW1000.setAntennaDelay(value);
+			
+			uint16_t antDelay = DW1000.getAntennaDelay();
+			Serial.print("antDelay: "); Serial.println(antDelay);
 		}		
-		
-		uint16_t delay = DW1000.getAntennaDelay();
-		Serial.println(delay);
+
 	}
 	else if (command.indexOf(PARSER_COMMAND_GET_ANTENNA_DELAY_STR) != -1) 
 	{
-		uint16_t delay = DW1000.getAntennaDelay();
-		Serial.println(delay);
+		uint16_t antDelay = DW1000.getAntennaDelay();
+		Serial.print("antDelay: "); Serial.println(antDelay);
 	}
 	else
 	{
