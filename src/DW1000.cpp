@@ -1397,7 +1397,7 @@ void DW1000Class::correctTimestamp(DW1000Time& timestamp) {
 	DW1000Time adjustmentTime;
 	adjustmentTime.setTimestamp((int16_t)(rangeBias*DW1000Time::DISTANCE_OF_RADIO_INV*0.001f));
 	// apply correction
-	timestamp += adjustmentTime;
+	timestamp -= adjustmentTime;
 }
 
 void DW1000Class::getSystemTimestamp(DW1000Time& time) {
