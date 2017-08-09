@@ -180,7 +180,7 @@ void DW1000RangingClass::startAsAnchor(char address[], const byte mode[], const 
 	
 	//we configure the network for mac filtering
 	//(device Address, network ID, frequency)
-	DW1000Ranging.configureNetwork(_currentShortAddress[0]*256+_currentShortAddress[1], 0xDECA, mode, 32900);
+	DW1000Ranging.configureNetwork(_currentShortAddress[0]*256+_currentShortAddress[1], 0xDECA, mode, 32939);
 	
 	//general start:
 	generalStart();
