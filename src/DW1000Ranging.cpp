@@ -180,7 +180,7 @@ void DW1000RangingClass::startAsAnchor(char address[], const byte mode[], const 
 	
 	//we configure the network for mac filtering
 	//(device Address, network ID, frequency)
-	DW1000Ranging.configureNetwork(_currentShortAddress[0]*256+_currentShortAddress[1], 0xDECA, mode, 32939);
+	DW1000Ranging.configureNetwork(_currentShortAddress[0]*256+_currentShortAddress[1], 0xDECA, mode, 32900);
 	
 	//general start:
 	generalStart();
@@ -188,7 +188,7 @@ void DW1000RangingClass::startAsAnchor(char address[], const byte mode[], const 
 	//defined type as anchor
 	_type = ANCHOR;
 	
-	Serial.println("device: anchor\t");
+	Serial.println("t:anchor");
 	
 }
 
@@ -219,7 +219,7 @@ void DW1000RangingClass::startAsTag(char address[], const byte mode[], const boo
 	//defined type as tag
 	_type = TAG;
 	
-	Serial.println("device: tag\t");
+	Serial.println("t:tag");
 }
 
 boolean DW1000RangingClass::addNetworkDevices(DW1000Device* device, boolean shortAddress) {
