@@ -36,10 +36,15 @@ void loop() {
 }
 
 void newRange() {
-  Serial.print("device: anchor");
-  Serial.print("\t from: "); Serial.print(DW1000Ranging.getDistantDevice()->getShortAddress(), HEX);
-  Serial.print("\t Range: "); Serial.print(DW1000Ranging.getDistantDevice()->getRange()); Serial.print(" m");
-  Serial.print("\t RX power: "); Serial.print(DW1000Ranging.getDistantDevice()->getRXPower()); Serial.println(" dBm");
+//  Serial.print("device: anchor");
+//  Serial.print("\t from: "); Serial.print(DW1000Ranging.getDistantDevice()->getShortAddress(), HEX);
+//  Serial.print("\t Range: "); Serial.print(DW1000Ranging.getDistantDevice()->getRange()); Serial.print(" m");
+//  Serial.print("\t RX power: "); Serial.print(DW1000Ranging.getDistantDevice()->getRXPower()); Serial.println(" dBm");
+
+  Serial.print("t:anchor"); //device type
+  Serial.print(" f:"); Serial.print(DW1000Ranging.getDistantDevice()->getShortAddress(), HEX); //from (peer device)
+  Serial.print(" d:"); Serial.print(DW1000Ranging.getDistantDevice()->getRange()); //distance in meters
+  Serial.print(" p:"); Serial.println(DW1000Ranging.getDistantDevice()->getRXPower()); //power in dBm
 }
 
 void newBlink(DW1000Device* device) {
